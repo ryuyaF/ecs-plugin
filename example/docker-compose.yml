@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  frontend:
+    build: app
+    image: 857326882996.dkr.ecr.ap-northeast-1.amazonaws.com/example:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend
+  backend:
+    image: redis:alpine

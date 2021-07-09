@@ -1,0 +1,23 @@
+name: Releaser
+
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  upload-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          DOCKER_BUILDKIT: 1
+        run: make cross
+
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "dist/*"
+          prerelease: true
+          token: ${{ secrets.GITHUB_TOKEN }}
